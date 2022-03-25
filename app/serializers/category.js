@@ -14,6 +14,6 @@ export default class CategorySerializer extends ApplicationSerializer {
         delete responseHash.relationships.subcategories.links;
       }
     }
-    return super(...arguments);
+    return super.normalize(...arguments);
   }
 }

@@ -5,9 +5,6 @@ export default class Application extends JSONAPIAdapter {
   coalesceFindRequests = true;
 
   get headers() {
-    if (this.session.isAuthenticated) {
-      return this.session.header;
-    }
     return null;
   }
 

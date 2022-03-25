@@ -1,6 +1,6 @@
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 import { cached } from '@glimmer/tracking';
-// import { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
 export default class Addon extends Model {
   isAddon = true;
@@ -119,8 +119,7 @@ export default class Addon extends Model {
 
   @cached
   get isNewAddon() {
-    return true;
-    // const cutoff = DateTime.now().minus({ weeks: 2 });
-    // return new DateTime(this.publishedDate) > cutoff;
+    const cutoff = DateTime.now().minus({ weeks: 2 });
+    return new DateTime(this.publishedDate) > cutoff;
   }
 }

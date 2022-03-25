@@ -1,6 +1,6 @@
 import Model, { belongsTo, attr } from '@ember-data/model';
 import { cached } from '@glimmer/tracking';
-import normalizeFingerprintedAsset from 'ember-observer/utils/normalize-fingerprinted-asset';
+import normalizeFingerprintedAsset from 'emberconf-22/utils/normalize-fingerprinted-asset';
 
 export default class AddonSize extends Model {
   @attr('number')
