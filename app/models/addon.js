@@ -1,10 +1,7 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { gt } from '@ember/object/computed';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
-import moment from 'moment';
+import { cached } from '@glimmer/tracking';
+// import { DateTime } from 'luxon';
 
-@classic
 export default class Addon extends Model {
   isAddon = true;
 
@@ -110,16 +107,20 @@ export default class Addon extends Model {
   @belongsTo('readme', { async: true })
   readme;
 
-  @gt('githubUsers.length', 1)
-  hasMoreThan1Contributor;
+  @cached
+  get hasMoreThan1Contributor() {
+    return this.githubUsers.length > 1;
+  }
 
-  @computed('name')
+  @cached
   get npmUrl() {
     return `https://www.npmjs.com/package/${this.name}`;
   }
 
-  @computed('publishedDate')
+  @cached
   get isNewAddon() {
-    return moment(this.publishedDate).isAfter(moment().subtract(2, 'weeks'));
+    return true;
+    // const cutoff = DateTime.now().minus({ weeks: 2 });
+    // return new DateTime(this.publishedDate) > cutoff;
   }
 }

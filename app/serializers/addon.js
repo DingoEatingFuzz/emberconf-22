@@ -1,7 +1,7 @@
 import ApplicationSerializer from './application';
 
-export default ApplicationSerializer.extend({
-  attrs: {
+export default class AddonSerializer extends ApplicationSerializer {
+  attrs = {
     name: { serialize: false },
     description: { serialize: false },
     repositoryUrl: { serialize: false },
@@ -23,5 +23,5 @@ export default ApplicationSerializer.extend({
     latestAddonVersion: { serialize: false },
     updatedAt: { serialize: false },
     hasBeenReviewed: { serialize: false },
-  },
-});
+  };
+}

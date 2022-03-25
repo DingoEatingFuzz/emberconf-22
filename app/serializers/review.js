@@ -1,7 +1,7 @@
 import ApplicationSerializer from './application';
 
-export default ApplicationSerializer.extend({
-  attrs: {
+export default class ReviewSerializer extends ApplicationSerializer {
+  attrs = {
     createdAt: { serialize: false },
-  },
-});
+  };
+}

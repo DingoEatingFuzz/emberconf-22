@@ -1,9 +1,10 @@
 import ApplicationSerializer from './application';
 
-export default ApplicationSerializer.extend({
-  attrs: {
+export default class CategorySerializer extends ApplicationSerializer {
+  attrs = {
     addonCount: { serialize: false },
-  },
+  };
+
   normalize(modelClass, responseHash) {
     if (responseHash.relationships) {
       if (responseHash.relationships.parent.links) {
@@ -13,6 +14,6 @@ export default ApplicationSerializer.extend({
         delete responseHash.relationships.subcategories.links;
       }
     }
-    return this._super(...arguments);
-  },
-});
+    return super(...arguments);
+  }
+}

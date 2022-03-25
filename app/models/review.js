@@ -1,6 +1,4 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { cached } from '@glimmer/tracking';
 import Model, { belongsTo, attr } from '@ember-data/model';
 
 export const questions = [
@@ -9,7 +7,6 @@ export const questions = [
   { text: 'Does the addon have a build?', fieldName: 'hasBuild' },
 ];
 
-@classic
 export default class Review extends Model {
   questions = questions;
 
@@ -31,16 +28,23 @@ export default class Review extends Model {
   @belongsTo('version')
   version;
 
-  @alias('version.released')
-  versionReleased;
+  get versionReleased() {
+    return this.version.released;
+  }
 
-  @computed('hasTests', 'hasBuild', 'hasReadme')
+  @cached
   get score() {
     let s = 2;
     /* eslint-disable */
-    if (this.hasTests === 1) { s++; }
-    if (this.hasBuild === 1) { s++; }
-    if (this.hasReadme === 1) { s++; }
+    if (this.hasTests === 1) {
+      s++;
+    }
+    if (this.hasBuild === 1) {
+      s++;
+    }
+    if (this.hasReadme === 1) {
+      s++;
+    }
     /* eslint-enable */
     return s;
   }

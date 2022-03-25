@@ -1,8 +1,6 @@
-import classic from 'ember-classic-decorator';
-import { equal, readOnly } from '@ember/object/computed';
+import { cached } from '@glimmer/tracking';
 import Model, { belongsTo, attr } from '@ember-data/model';
 
-@classic
 export default class AddonDependency extends Model {
   @attr('string')
   package;
@@ -16,12 +14,17 @@ export default class AddonDependency extends Model {
   @belongsTo('addon')
   packageAddon;
 
-  @equal('dependencyType', 'dependencies')
-  isDependency;
+  @cached
+  get isDependency() {
+    return this.dependencyType === 'dependencies';
+  }
 
-  @equal('dependencyType', 'devDependencies')
-  isDevDependency;
+  @cached
+  get isDevDependency() {
+    return this.dependencyType === 'devDependencies';
+  }
 
-  @readOnly('packageAddon.latestAddonVersion.addonSize')
-  addonSize;
+  get addonSize() {
+    return this.packageAddon.latestAddonVersion.addonSize;
+  }
 }

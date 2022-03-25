@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
 import Model, { belongsTo, attr } from '@ember-data/model';
+import { cached } from '@glimmer/tracking';
 import normalizeFingerprintedAsset from 'ember-observer/utils/normalize-fingerprinted-asset';
 
-@classic
 export default class AddonSize extends Model {
   @attr('number')
   appJsSize;
@@ -47,52 +45,52 @@ export default class AddonSize extends Model {
   @belongsTo('version')
   addonVersion;
 
-  @computed('otherJsSize', 'otherCssSize')
+  @cached
   get otherAssetsSize() {
     return this.otherJsSize + this.otherCssSize;
   }
 
-  @computed('otherJsGzipSize', 'otherCssGzipSize')
+  @cached
   get otherAssetsGzipSize() {
     return this.otherJsGzipSize + this.otherCssGzipSize;
   }
 
-  @computed('appJsSize', 'vendorJsSize', 'otherJsSize')
+  @cached
   get totalJsSize() {
     return this.appJsSize + this.vendorJsSize + this.otherJsSize;
   }
 
-  @computed('appJsGzipSize', 'vendorJsGzipSize', 'otherJsGzipSize')
+  @cached
   get totalJsGzipSize() {
     return this.appJsGzipSize + this.vendorJsGzipSize + this.otherJsGzipSize;
   }
 
-  @computed('appCssSize', 'otherCssSize', 'otherJCssSize', 'vendorCssSize')
+  @cached
   get totalCssSize() {
     return this.appCssSize + this.vendorCssSize + this.otherCssSize;
   }
 
-  @computed('appCssGzipSize', 'vendorCssGzipSize', 'otherCssGzipSize')
+  @cached
   get totalCssGzipSize() {
     return this.appCssGzipSize + this.vendorCssGzipSize + this.otherCssGzipSize;
   }
 
-  @computed('totalJsSize', 'totalCssSize')
+  @cached
   get totalSize() {
     return this.totalJsSize + this.totalCssSize;
   }
 
-  @computed('totalJsGzipSize', 'totalCssGzipSize')
+  @cached
   get totalGzipSize() {
     return this.totalJsGzipSize + this.totalCssGzipSize;
   }
 
-  @computed('otherAssets.files.length')
+  @cached
   get hasOtherAssetsFiles() {
     return this.otherAssets.files && this.otherAssets.files.length > 0;
   }
 
-  @computed('otherAssets.files')
+  @cached
   get normalizedOtherAssetFiles() {
     return this.otherAssets.files.map(function (f) {
       return {

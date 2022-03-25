@@ -1,8 +1,5 @@
-import classic from 'ember-classic-decorator';
-import { readOnly } from '@ember/object/computed';
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-@classic
 export default class TestResult extends Model {
   @attr('boolean')
   succeeded;
@@ -31,6 +28,7 @@ export default class TestResult extends Model {
   @hasMany('emberVersionCompatibility')
   emberVersionCompatibilities;
 
-  @readOnly('createdAt')
-  testsRunAt;
+  get testsRunAt() {
+    return this.createdAt;
+  }
 }

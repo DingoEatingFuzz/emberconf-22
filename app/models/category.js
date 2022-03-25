@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
 import { dasherize } from '@ember/string';
+import { cached } from '@glimmer/tracking';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
-@classic
 export default class Category extends Model {
   @attr('string')
   name;
@@ -26,21 +24,21 @@ export default class Category extends Model {
   @hasMany('category', { inverse: 'parent', async: false })
   subcategories;
 
-  @computed('name')
+  @cached
   get slug() {
     return dasherize(this.name);
   }
 
-  @computed('parent.name', 'name')
+  @cached
   get displayName() {
     if (this.parent) {
-      return `${this.get('parent.name')} > ${this.name}`;
+      return `${this.parent.name} > ${this.name}`;
     } else {
       return this.name;
     }
   }
 
-  @computed('addonCount', 'subcategories.@each.addonCount')
+  @cached
   get totalAddonCount() {
     return this.subcategories
       .mapBy('addonCount')
