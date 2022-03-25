@@ -69,6 +69,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "faker": "^5.5.0",
     "luxon": "^2.3.1"
   },
