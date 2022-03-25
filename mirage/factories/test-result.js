@@ -1,10 +1,10 @@
 import Mirage from 'ember-cli-mirage';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 export default Mirage.Factory.extend({
   succeeded: true,
   statusMessage: '',
-  testsRunAt: () => moment.utc(),
+  testsRunAt: () => new DateTime.utc(),
   canary: false,
   output: '',
 });

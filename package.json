@@ -66,5 +66,9 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "faker": "^5.5.0",
+    "luxon": "^2.3.1"
   }
 }
