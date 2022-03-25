@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
@@ -70,6 +71,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "d3": "^7.3.0",
     "faker": "^5.5.0",
     "luxon": "^2.3.1"
   },
