@@ -9,10 +9,16 @@ export default class D3BarChart extends Component {
 
   @action
   mount(el) {
-    const data = this.args.data.sortBy('addons.length').slice(0, 15);
+    // Only chart the top 15 categories by number of addons
+    let data = this.args.data.sortBy('addons.length').reverse().slice(0, 15);
+
+    // Compute average score
     data.forEach((d) => {
       d.avgScore = d3.mean(d.addons.mapBy('score'));
     });
+
+    // Sort by average score descending
+    data = data.sortBy('avgScore').reverse();
 
     // Aesthetic measurements
     const height = 400;
