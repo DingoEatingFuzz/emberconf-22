@@ -3,9 +3,7 @@ import { action } from '@ember/object';
 import * as d3 from 'd3';
 
 export default class D3BarChart extends Component {
-  get yLabel() {
-    return 'Avg. Rating';
-  }
+  yLabel = 'Avg. Rating';
 
   @action
   mount(el) {
