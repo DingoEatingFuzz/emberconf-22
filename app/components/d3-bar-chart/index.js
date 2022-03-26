@@ -16,7 +16,7 @@ export default class D3BarChart extends Component {
 
     // Aesthetic measurements
     const height = 400;
-    const width = 1500;
+    const width = 900;
     const marginTop = 20;
     const marginBottom = 30;
     const marginLeft = 40;
@@ -82,6 +82,12 @@ export default class D3BarChart extends Component {
     svg
       .append('g')
       .attr('transform', `translate(0,${height - marginBottom})`)
-      .call(xAxis);
+      .call(xAxis)
+      .call((g) =>
+        g
+          .selectAll('.tick text')
+          .attr('text-anchor', 'end')
+          .attr('transform', 'rotate(-45)')
+      );
   }
 }
