@@ -8,7 +8,14 @@ export default class D3BarChart extends Component {
   }
 
   @cached
+  get popularAddons() {
+    return this.args.addons.filter((addon) => addon.lastMonthDownloads > 100);
+  }
+
+  @cached
   get addonsByCategory() {
+    console.log('Total addons:', this.args.addons.length);
+    console.log('Popular addons:', this.popularAddons.length);
     /*
      * [
      *  { category: '', addons: [ { name: '', score: 5 } ] }
@@ -17,7 +24,7 @@ export default class D3BarChart extends Component {
     return this.parentCategories.reduce((set, category) => {
       set.push({
         category,
-        addons: this.args.addons.filter((addon) =>
+        addons: this.popularAddons.filter((addon) =>
           addon.categories.includes(category)
         ),
       });
