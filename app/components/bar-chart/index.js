@@ -71,8 +71,11 @@ export default class BarChart extends Component {
   }
 
   @action
-  mountElements() {
-    d3.select('.y-axis')
+  mountElements(el) {
+    const $el = d3.select(el);
+
+    $el
+      .select('.y-axis')
       .call(this.yAxis)
       .call((g) => g.select('.domain').remove())
       .call((g) =>
@@ -83,7 +86,8 @@ export default class BarChart extends Component {
           .attr('stroke-opacity', 0.1)
       );
 
-    d3.select('.x-axis')
+    $el
+      .select('.x-axis')
       .call(this.xAxis)
       .call((g) =>
         g
