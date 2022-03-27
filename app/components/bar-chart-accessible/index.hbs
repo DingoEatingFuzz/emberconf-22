@@ -1,0 +1,32 @@
+<svg
+  role='group'
+  class='bar-chart bar-chart--deck'
+  {{did-insert this.mountElements}}
+>
+  <title>Average score of popular addons by category</title>
+  <g
+    aria-hidden='true'
+    class='y-axis'
+    transform='translate({{this.marginLeft}},0)'
+  >
+    <text>{{this.yLabel}}</text>
+  </g>
+  <g class='gridlines' transform='translate({{this.marginLeft}},0)'></g>
+  <g class='bars'>
+    {{#each this.computedData as |bar|}}
+      <rect
+        role='cell'
+        aria-label='{{bar.category.name}} {{bar.formattedAvgScore}}'
+        x={{bar.x}}
+        y={{bar.y}}
+        height={{bar.height}}
+        width={{bar.width}}
+      ></rect>
+    {{/each}}
+  </g>
+  <g
+    aria-hidden='true'
+    class='x-axis'
+    transform='translate(0, {{this.xAxisOffset}})'
+  ></g>
+</svg>
