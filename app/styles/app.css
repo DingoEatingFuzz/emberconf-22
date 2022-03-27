@@ -26,3 +26,7 @@
 .bar-chart .x-axis text {
   transform: rotate(-45deg);
 }
+
+.bar-chart--deck text {
+  font-size: 18px;
+}
