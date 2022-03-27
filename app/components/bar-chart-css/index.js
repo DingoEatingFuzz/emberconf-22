@@ -15,7 +15,7 @@ export default class BarChartCSS extends Component {
   @tracked marginRight = 0;
 
   @cached get xAxisOffset() {
-    return this.height - this.marginBottom;
+    return Math.max(0, this.height - this.marginBottom);
   }
 
   @cached get data() {
@@ -69,8 +69,8 @@ export default class BarChartCSS extends Component {
       ...d,
       x: this.xScale(d.category.name) + 5,
       y: this.yScale(d.avgScore),
-      height: this.yScale(0) - this.yScale(d.avgScore),
-      width: this.xScale.bandwidth() - 10,
+      height: Math.max(0, this.yScale(0) - this.yScale(d.avgScore)),
+      width: Math.max(0, this.xScale.bandwidth() - 10),
     }));
   }
 
