@@ -1,0 +1,23 @@
+<svg
+  role='group'
+  class='bar-chart bar-chart--deck'
+  {{did-insert this.onInsert}}
+>
+  <title>{{@title}}</title>
+  <g
+    aria-hidden='true'
+    class='y-axis'
+    transform='translate({{this.yAxisWidth}}, 0)'
+  >
+    <text>{{@yLabel}}</text>
+  </g>
+  <g class='gridlines' transform='translate({{this.yAxisWidth}}, 0)'></g>
+  <g class='canvas'>
+    {{! yield here }}
+  </g>
+  <g
+    aria-hidden='true'
+    class='x-axis'
+    transform='translate(0, {{this.xAxisOffset}})'
+  ></g>
+</svg>

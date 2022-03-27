@@ -2,7 +2,17 @@
 <div style='width: 1000px;margin:auto;'>
   {{!-- <D3BarChart @data={{this.addonsByCategory}} /> --}}
   {{!-- <BarChart @data={{this.addonsByCategory}} /> --}}
-  <div style='width:900px; height: 400px'>
+  {{!-- <div style='width:900px; height: 400px'>
     <BarChartAccessible @data={{this.addonsByCategory}} />
+  </div> --}}
+  <div style='width:900px; height:500px;'>
+    <CartesianChart
+      @data={{this.addonsByCategory}}
+      @xProp='category.name'
+      @xLimit={{15}}
+      @yProp='addons.score'
+      @yDomain={{array 0 10}}
+      @yAgg='mean'
+    />
   </div>
 </div>
