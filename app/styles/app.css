@@ -1,0 +1,28 @@
+.bar-chart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.bar-chart .x-axis text,
+.bar-chart .y-axis text {
+  text-anchor: end;
+  fill: currentColor;
+}
+
+.bar-chart .gridlines line {
+  stroke-opacity: 0.1;
+}
+
+.bar-chart .y-axis .domain,
+.bar-chart .gridlines .domain {
+  display: none;
+}
+
+.bar-chart .bars {
+  fill: #e74500;
+}
+
+.bar-chart .x-axis text {
+  transform: rotate(-45deg);
+}

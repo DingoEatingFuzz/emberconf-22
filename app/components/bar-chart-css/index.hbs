@@ -1,0 +1,17 @@
+<svg class='bar-chart' {{did-insert this.mountElements}}>
+  <g class='y-axis' transform='translate({{this.marginLeft}},0)'>
+    <text>{{this.yLabel}}</text>
+  </g>
+  <g class='gridlines' transform='translate({{this.marginLeft}},0)'></g>
+  <g class='bars'>
+    {{#each this.computedData as |bar|}}
+      <rect
+        x={{bar.x}}
+        y={{bar.y}}
+        height={{bar.height}}
+        width={{bar.width}}
+      ></rect>
+    {{/each}}
+  </g>
+  <g class='x-axis' transform='translate(0, {{this.xAxisOffset}})'></g>
+</svg>
