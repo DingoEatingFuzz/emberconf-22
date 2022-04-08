@@ -93,7 +93,7 @@ export default class CartesianChart extends Component {
     return [this.yAxisWidth, this.width];
   }
   @cached get xDomain() {
-    return this.data.mapBy(this.args.xProp);
+    return this.data.mapBy('$value');
   }
   @cached get xDomainSum() {
     return [0, d3.sum(this.data, (d) => d.$size)];
