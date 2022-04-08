@@ -25,6 +25,6 @@ npm i && npm start
   4. [Marimekko chart of GDP per person at PPP and share of global population, by The Economist](https://www.economist.com/finance-and-economics/2014/05/01/the-dragon-takes-wing)
   5. [Ember Animated](https://github.com/ember-animation/ember-animated)
   6. [Chartability: heuristics for ensuring that data visualizations, systems, and interfaces are accessible](https://chartability.fizz.studio/)
-    1. [The POUR+CAF model](https://github.com/Chartability/POUR-CAF)
+     1. [The POUR+CAF model](https://github.com/Chartability/POUR-CAF)
   7. [Glint: TypeScript-powered tooling for Glimmer templates](https://typed-ember.gitbook.io/glint)
   8. [react-three-fiber: A React renderer for Three.js](https://github.com/pmndrs/react-three-fiber)
