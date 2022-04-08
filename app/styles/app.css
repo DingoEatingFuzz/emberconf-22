@@ -20,13 +20,23 @@
 }
 
 .bar-chart .bars {
-  fill: #e74500;
+  fill: #e04e39;
 }
 
 .bar-chart .x-axis text {
-  transform: rotate(-45deg);
+  transform: translate(-5px) rotate(-45deg);
+  font-size: 16px;
 }
 
 .bar-chart--deck text {
   font-size: 18px;
+}
+
+.bar-chart .marimekko-bars .label text {
+  font-family: sans-serif;
+  transform: translate(10px, -10px) rotate(-45deg);
+}
+
+.bar-chart .marimekko-bars rect {
+  fill: #e04e39;
 }
