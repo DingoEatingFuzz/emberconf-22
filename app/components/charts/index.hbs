@@ -4,7 +4,7 @@
   {{!-- <BarChart @data={{this.addonsByCategory}} /> --}}
   {{!-- <div style='width:900px; height: 400px'>
     <BarChartAccessible @data={{this.addonsByCategory}} />
-  </div> --}}
+  </div>
   <div style='width:900px; height:500px;'>
     <CartesianChart
       @data={{this.addonsByCategory}}
@@ -13,6 +13,24 @@
       @yProp='addons.score'
       @yDomain={{array 0 10}}
       @yAgg='mean'
-    />
+      as |C|
+    >
+      <C.Bars />
+    </CartesianChart>
+  </div>
+  --}}
+  <div style='width:1100px; height:500px;'>
+    <CartesianChart
+      @data={{this.addonsByCategory}}
+      @xProp='category.name'
+      @xLimit={{15}}
+      @xSizeProp='addons.length'
+      @yProp='addons.score'
+      @yDomain={{array 0 10}}
+      @yAgg='mean'
+      as |C|
+    >
+      <C.Marimekko @noun='addons' />
+    </CartesianChart>
   </div>
 </div>
