@@ -1,56 +1,30 @@
-# emberconf-22
+# EmberConf '22: Template-first Data Viz
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+All demo code and supporting links.
 
-## Prerequisites
+## Running the demo
 
-You will need the following things properly installed on your computer.
+It's an Ember app of course!
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://cli.emberjs.com/release/)
-* [Google Chrome](https://google.com/chrome/)
+```shellsession
+npm i && npm start
+```
 
-## Installation
+## Resources
 
-* `git clone <repository-url>` this repository
-* `cd emberconf-22`
-* `npm install`
+### Web pages shown during the talk
 
-## Running / Development
+  1. [Learn D3: Animation, by Observable](https://observablehq.com/@d3/learn-d3-animation)
+  2. [CSS Variable line chart animation Codepen, by me](https://codepen.io/DingoEatingFuzz/pen/LYeyoaJ) 
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+### Referenced materials
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint`
-* `npm run lint:fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://cli.emberjs.com/release/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+  1. [D3 4.0 release notes](https://github.com/d3/d3/blob/main/CHANGES.md#changes-in-d3-40)
+  2. [Data Viz Project (gallery of well curated chart types)](https://datavizproject.com/)
+  3. [Navigating the Wide World of Data Visualization Libraries, by Kris Wongsuphasawat](https://medium.com/nightingale/navigating-the-wide-world-of-web-based-data-visualization-libraries-798ea9f536e7)
+  4. [Marimekko chart of GDP per person at PPP and share of global population, by The Economist](https://www.economist.com/finance-and-economics/2014/05/01/the-dragon-takes-wing)
+  5. [Ember Animated](https://github.com/ember-animation/ember-animated)
+  6. [Chartability: heuristics for ensuring that data visualizations, systems, and interfaces are accessible](https://chartability.fizz.studio/)
+    1. [The POUR+CAF model](https://github.com/Chartability/POUR-CAF)
+  7. [Glint: TypeScript-powered tooling for Glimmer templates](https://typed-ember.gitbook.io/glint)
+  8. [react-three-fiber: A React renderer for Three.js](https://github.com/pmndrs/react-three-fiber)
