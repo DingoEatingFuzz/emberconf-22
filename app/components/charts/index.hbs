@@ -1,38 +1,7 @@
-<button>capture focus</button>
-<div style='width: 1000px;margin:auto;'>
-  {{!-- <D3BarChart @data={{this.addonsByCategory}} /> --}}
-  {{!-- <BarChart @data={{this.addonsByCategory}} /> --}}
-  {{!-- <div style='width:900px; height: 400px'>
-    <BarChartAccessible @data={{this.addonsByCategory}} />
-  </div>
-  <div style='width:900px; height:500px;'>
-    <CartesianChart
-      @data={{this.addonsByCategory}}
-      @xProp='category.name'
-      @yProp='addons.score'
-      @yDomain={{array 0 10}}
-      @yAgg='mean'
-      as |C|
-    >
-      <C.Bars />
-    </CartesianChart>
-  </div>
-  --}}
-  <div style='width:1100px; height:500px;'>
-    <button
-      {{on 'click' this.toggleSort}}
-      style='margin-bottom:40px;'
-    >Sort</button>
-    <CartesianChart
-      @data={{this.addonsByCategory}}
-      @xProp='category.name'
-      @xSizeProp='addons.length'
-      @yProp='addons.score'
-      @yDomain={{array 0 10}}
-      @yAgg='mean'
-      as |C|
-    >
-      <C.Marimekko @noun='addons' />
-    </CartesianChart>
-  </div>
+<div style='width:1100px; height:500px; margin:auto;'>
+  <button>capture focus</button>
+  {{#if @sortable}}
+    <button {{on 'click' this.toggleSort}}>Sort</button>
+  {{/if}}
+  {{yield this.addonsByCategory}}
 </div>

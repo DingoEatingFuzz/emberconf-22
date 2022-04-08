@@ -1,0 +1,18 @@
+<Charts
+  @categories={{this.model.categories}}
+  @addons={{this.model.addons}}
+  @sortable={{true}}
+  as |data|
+>
+  <CartesianChart
+    @data={{data}}
+    @xProp='category.name'
+    @xSizeProp='addons.length'
+    @yProp='addons.score'
+    @yDomain={{array 0 10}}
+    @yAgg='mean'
+    as |C|
+  >
+    <C.Marimekko @noun='addons' />
+  </CartesianChart>
+</Charts>

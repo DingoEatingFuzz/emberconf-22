@@ -1,0 +1,16 @@
+<Charts
+  @categories={{this.model.categories}}
+  @addons={{this.model.addons}}
+  as |data|
+>
+  <CartesianChart
+    @data={{data}}
+    @xProp='category.name'
+    @yProp='addons.score'
+    @yDomain={{array 0 10}}
+    @yAgg='mean'
+    as |C|
+  >
+    <C.Bars />
+  </CartesianChart>
+</Charts>

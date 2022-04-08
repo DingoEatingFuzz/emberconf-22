@@ -1,5 +1,14 @@
 {{page-title 'Emberconf22'}}
 
-<Charts @categories={{this.model.categories}} @addons={{this.model.addons}} />
+<nav>
+  <LinkTo @route='d3-bar-chart'>D3 Bar Chart</LinkTo>
+  <LinkTo @route='bar-chart'>Bar Chart</LinkTo>
+  <LinkTo @route='bar-chart-accessible'>Bar Chart A11y</LinkTo>
+  <LinkTo @route='cartesian-chart'>Cartesian Chart</LinkTo>
+  <LinkTo @route='marimekko'>Marimekko Chart</LinkTo>
+  <LinkTo @route='animated'>Animated Chart</LinkTo>
+</nav>
 
-{{outlet}}
+<main>
+  {{outlet}}
+</main>
