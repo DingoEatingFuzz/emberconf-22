@@ -1,0 +1,12 @@
+<g class='bars'>
+  {{#each this.computedData as |bar|}}
+    <rect
+      role='cell'
+      aria-label='{{bar.formattedValue}} {{bar.formattedField}}'
+      x={{bar.x}}
+      y={{bar.y}}
+      height={{bar.height}}
+      width={{bar.width}}
+    ></rect>
+  {{/each}}
+</g>

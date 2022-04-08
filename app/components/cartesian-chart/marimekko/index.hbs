@@ -1,0 +1,17 @@
+<g class='marimekko-bars'>
+  {{#each this.computedData as |bar|}}
+    <g class='bar' transform='translate({{bar.x}},0)'>
+      <rect
+        role='cell'
+        aria-label='{{bar.formattedValue}} {{bar.formattedField}} with {{bar.$size}} {{@noun}}'
+        x='0'
+        y={{bar.y}}
+        height={{bar.height}}
+        width={{bar.width}}
+      ></rect>
+      <g class='label' transform='translate({{bar.labelX}}, {{bar.y}})'>
+        <text>{{bar.formattedValue}} ({{bar.formattedSize}})</text>
+      </g>
+    </g>
+  {{/each}}
+</g>

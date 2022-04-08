@@ -1,3 +1,4 @@
+<button {{on 'click' this.sort}} style='margin-bottom:40px;'>Sort</button>
 <svg
   role='group'
   class='bar-chart bar-chart--deck'
@@ -13,7 +14,22 @@
   </g>
   <g class='gridlines' transform='translate({{this.yAxisWidth}}, 0)'></g>
   <g class='canvas'>
-    {{! yield here }}
+    {{yield
+      (hash
+        Bars=(component
+          'cartesian-chart/bars'
+          data=this.data
+          xScale=this.xScale
+          yScale=this.yScale
+        )
+        Marimekko=(component
+          'cartesian-chart/marimekko'
+          data=this.data
+          xScale=this.xScaleLinear
+          yScale=this.yScale
+        )
+      )
+    }}
   </g>
   <g
     aria-hidden='true'

@@ -3,6 +3,7 @@ import { get } from '@ember/object';
 import { tracked, cached } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
+import { task } from 'ember-concurrency';
 import * as d3 from 'd3';
 
 const aggregators = {
@@ -10,10 +11,16 @@ const aggregators = {
   sum: d3.sum,
 };
 
+const raf = () =>
+  new Promise((resolve) => window.requestAnimationFrame(resolve));
+
 export default class CartesianChart extends Component {
   @tracked height = 1;
   @tracked width = 1;
   @tracked element = null;
+  @tracked _data = null;
+
+  @tracked reverse = false;
 
   // Derived once the axes are rendered
   @tracked xAxisHeight = 0;
@@ -25,7 +32,9 @@ export default class CartesianChart extends Component {
 
   // Data is now derived from xLimit, yProp, and yAgg
   @cached get data() {
-    const { xLimit, yProp, yAgg } = this.args;
+    if (this._data) return this._data;
+
+    const { xLimit, xProp, xSizeProp, yProp, yAgg } = this.args;
     const aggregator = yAgg && aggregators[yAgg];
 
     let yField = yProp;
@@ -43,9 +52,41 @@ export default class CartesianChart extends Component {
 
     data.forEach((d) => {
       d.$field = yAgg ? aggregator(d[yField].mapBy(yAttr)) : d[yField];
+      d.$value = get(d, xProp);
+      d.$size = xSizeProp ? get(d, xSizeProp) : 0;
     });
 
-    return data.sortBy('$field').reverse();
+    return data; // .sortBy('$field').reverse();
+  }
+
+  @action sort() {
+    const oldData = this.data.map(({ $field, $value, $size }) => ({
+      $field,
+      $value,
+      $size,
+    }));
+    this.reverse = !this.reverse;
+
+    let newData = [...oldData].sortBy('$field');
+    if (this.reverse) {
+      newData = newData.reverse();
+    }
+
+    this.animate.perform(oldData, newData);
+  }
+
+  @task
+  *animate(oldData, newData, duration = 500) {
+    const start = window.performance.now();
+    const interpolator = d3.interpolate(oldData, newData);
+
+    let now = 0;
+    while (now < duration) {
+      now = window.performance.now() - start;
+      this._data = interpolator(Math.min(1, now / duration));
+      this.mountElements(this.element);
+      yield raf();
+    }
   }
 
   @cached get yRange() {
@@ -58,7 +99,6 @@ export default class CartesianChart extends Component {
     return d3.scaleLinear(this.yDomain, this.yRange);
   }
   @cached get yAxis() {
-    console.log('yScale', this.yScale.domain(), this.yScale.range());
     return d3.axisLeft(this.yScale);
   }
   @cached get yGridlines() {
@@ -74,25 +114,22 @@ export default class CartesianChart extends Component {
   @cached get xDomain() {
     return this.data.mapBy(this.args.xProp);
   }
+  @cached get xDomainSum() {
+    return [0, d3.sum(this.data, (d) => d.$size)];
+  }
   @cached get xScale() {
     return d3.scaleBand().domain(this.xDomain).range(this.xRange);
   }
-  @cached get xAxis() {
-    console.log('xScale', this.xScale.domain(), this.xScale.range());
-    return d3.axisBottom(this.xScale).tickSizeOuter(0);
+  @cached get xScaleLinear() {
+    return d3.scaleLinear().domain(this.xDomainSum).range(this.xRange);
   }
-
-  // Apply geometric computations on the dataset for use in the template
-  @cached get computedData() {
-    const formatter = d3.format('.1f');
-    return this.data.map((d) => ({
-      ...d,
-      x: this.xScale(get(d, this.args.xProp)) + 5,
-      y: this.yScale(d.$field),
-      formattedAvgScore: formatter(d.$field),
-      height: this.yScale(0) - this.yScale(d.$field),
-      width: this.xScale.bandwidth() - 10,
-    }));
+  @cached get xAxis() {
+    const xScale = this.args.xSizeProp ? this.xScaleLinear : this.xScale;
+    const axis = d3.axisBottom(xScale).tickSizeOuter(0);
+    if (this.args.xSizeProp) {
+      axis.tickValues([0, ...d3.cumsum(this.data, (d) => d.$size)]);
+    }
+    return axis;
   }
 
   @action
