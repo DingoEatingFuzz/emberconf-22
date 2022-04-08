@@ -18,9 +18,7 @@ export default class CartesianChart extends Component {
   @tracked height = 1;
   @tracked width = 1;
   @tracked element = null;
-  @tracked _data = null;
-
-  @tracked reverse = false;
+  @tracked data = [];
 
   // Derived once the axes are rendered
   @tracked xAxisHeight = 0;
@@ -30,11 +28,9 @@ export default class CartesianChart extends Component {
     return this.height - this.xAxisHeight;
   }
 
-  // Data is now derived from xLimit, yProp, and yAgg
-  @cached get data() {
-    if (this._data) return this._data;
-
-    const { xLimit, xProp, xSizeProp, yProp, yAgg } = this.args;
+  // Data is now derived from yProp, xProp, xSizeProp, and yAgg
+  prepareData(data) {
+    const { xProp, xSizeProp, yProp, yAgg } = this.args;
     const aggregator = yAgg && aggregators[yAgg];
 
     let yField = yProp;
@@ -43,36 +39,21 @@ export default class CartesianChart extends Component {
       [yField, yAttr] = yProp.split('.');
     }
 
-    let data = this.args.data;
-    if (xLimit) {
-      data = yAgg
-        ? data.sortBy(`${yField}.length`).reverse().slice(0, xLimit)
-        : data.sortBy(yField).reverse().slice(0, xLimit);
-    }
-
     data.forEach((d) => {
       d.$field = yAgg ? aggregator(d[yField].mapBy(yAttr)) : d[yField];
       d.$value = get(d, xProp);
       d.$size = xSizeProp ? get(d, xSizeProp) : 0;
     });
 
-    return data; // .sortBy('$field').reverse();
-  }
-
-  @action sort() {
-    const oldData = this.data.map(({ $field, $value, $size }) => ({
+    return data.map(({ $field, $value, $size }) => ({
       $field,
       $value,
       $size,
     }));
-    this.reverse = !this.reverse;
+  }
 
-    let newData = [...oldData].sortBy('$field');
-    if (this.reverse) {
-      newData = newData.reverse();
-    }
-
-    this.animate.perform(oldData, newData);
+  @action animateData() {
+    this.animate.perform(this.data, this.prepareData(this.args.data));
   }
 
   @task
@@ -83,7 +64,7 @@ export default class CartesianChart extends Component {
     let now = 0;
     while (now < duration) {
       now = window.performance.now() - start;
-      this._data = interpolator(Math.min(1, now / duration));
+      this.data = interpolator(Math.min(1, now / duration));
       this.mountElements(this.element);
       yield raf();
     }
@@ -134,6 +115,7 @@ export default class CartesianChart extends Component {
 
   @action
   onInsert(el) {
+    this.data = this.prepareData(this.args.data);
     // Derive width and height from parent element
     this.width = el.clientWidth;
     this.height = el.clientHeight;

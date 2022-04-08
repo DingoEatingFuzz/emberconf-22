@@ -1,8 +1,8 @@
-<button {{on 'click' this.sort}} style='margin-bottom:40px;'>Sort</button>
 <svg
   role='group'
   class='bar-chart bar-chart--deck'
   {{did-insert this.onInsert}}
+  {{did-update this.animateData @data}}
 >
   <title>{{@title}}</title>
   <g

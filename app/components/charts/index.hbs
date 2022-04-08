@@ -9,7 +9,6 @@
     <CartesianChart
       @data={{this.addonsByCategory}}
       @xProp='category.name'
-      @xLimit={{15}}
       @yProp='addons.score'
       @yDomain={{array 0 10}}
       @yAgg='mean'
@@ -20,10 +19,13 @@
   </div>
   --}}
   <div style='width:1100px; height:500px;'>
+    <button
+      {{on 'click' this.toggleSort}}
+      style='margin-bottom:40px;'
+    >Sort</button>
     <CartesianChart
       @data={{this.addonsByCategory}}
       @xProp='category.name'
-      @xLimit={{15}}
       @xSizeProp='addons.length'
       @yProp='addons.score'
       @yDomain={{array 0 10}}
